@@ -31,7 +31,7 @@ class WelcomeScreen extends Component {
     pressHandlerSignIn = () => {
         console.log('Sign in button pressed');
         this.props.route.params.signInUpdate();
-        this.props.navigation.navigate('MainScreen');
+        this.props.navigation.navigate('SignInScreen');
     };
 
     render() {

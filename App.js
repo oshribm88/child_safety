@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { View } from 'react-native';
 import MainScreen from './screens/MainScreen';
+import SignInScreen from './screens/SignInScreen';
 import WelcomeScreen from './screens/WelcomeScreen';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -17,7 +18,7 @@ class App extends Component {
   };
 
   initScreen() {
-    return this.state.isSignedIn ? "MainScreen" : "WelcomeScreen"
+    return this.state.isSignedIn ? "MainScreen" : "SigninScreen"
   }
 
   signInUpdate = () => {
@@ -32,7 +33,7 @@ class App extends Component {
       <NavigationContainer>
         <Stack.Navigator initialRouteName={this.initScreen()} screenOptions={{ headerShown: false }}>
           <Stack.Screen name="MainScreen" component={MainScreen} />
-          <Stack.Screen name="WelcomeScreen" component={WelcomeScreen} initialParams={{ signInUpdate: this.signInUpdate }} />
+          <Stack.Screen name="SignInScreen" component={SignInScreen} />
         </Stack.Navigator>
       </NavigationContainer>
     );
