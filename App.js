@@ -18,7 +18,7 @@ class App extends Component {
   };
 
   initScreen() {
-    return this.state.isSignedIn ? "MainScreen" : "SigninScreen"
+    return this.state.isSignedIn ? "MainScreen" : "SignInScreen"
   }
 
   signInUpdate = () => {
@@ -34,6 +34,7 @@ class App extends Component {
         <Stack.Navigator initialRouteName={this.initScreen()} screenOptions={{ headerShown: false }}>
           <Stack.Screen name="MainScreen" component={MainScreen} />
           <Stack.Screen name="SignInScreen" component={SignInScreen} />
+          <Stack.Screen name="WelcomeScreen" component={WelcomeScreen} initialParams={{ signInUpdate: this.signInUpdate }} />
         </Stack.Navigator>
       </NavigationContainer>
     );

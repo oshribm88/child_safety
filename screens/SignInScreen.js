@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, TextInput, Button } from 'react-native';
+import { View, TextInput, Button, StyleSheet } from 'react-native';
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/auth';
 import 'firebase/compat/firestore';
@@ -36,27 +36,32 @@ class SignInScreen extends Component {
   }
 
   render() {
+    console.log('SignInScreen render')
     return (
-      <View>
+      <View style={styles.container}>
         <TextInput
-          placeholder="Phone number"
+          placeholder=" Phone number"
           onChangeText={phoneNumber => this.setState({ phoneNumber })}
           value={this.state.phoneNumber}
+          style={styles.textInput}
         />
         <Button
           title="Sign in with phone number"
           onPress={this.signInWithPhoneNumber}
+          style={styles.button}
         />
-        { this.state.confirmResult &&
+        {this.state.confirmResult &&
           <View>
             <TextInput
               placeholder="Verification code"
               onChangeText={verificationCode => this.setState({ verificationCode })}
               value={this.state.verificationCode}
+              style={styles.textInput}
             />
             <Button
               title="Confirm code"
               onPress={this.confirmCode}
+              style={styles.button}
             />
           </View>
         }
@@ -64,5 +69,24 @@ class SignInScreen extends Component {
     );
   }
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+  textInput: {
+    width: '55%',
+    height: 40,
+    borderColor: 'gray',
+    borderWidth: 1,
+    margin: 10
+  },
+  button: {
+    width: '80%',
+    margin: 10
+  }
+});
 
 export default SignInScreen;
