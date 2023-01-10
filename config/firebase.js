@@ -1,12 +1,6 @@
-import { initializeApp } from "firebase/app";
-import 'firebase/auth';
-import Constants from 'expo-constants';
-import { getAnalytics } from "firebase/analytics";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
+import { initializeApp } from 'firebase/app';
+import { getDatabase, ref, set, child, get } from "firebase/database";
 
-// Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
   apiKey: "AIzaSyBUj-2DJHc_w_G8hMSVqaVDqefZKrqMgaI",
   authDomain: "noworries-e37a2.firebaseapp.com",
@@ -14,10 +8,11 @@ const firebaseConfig = {
   projectId: "noworries-e37a2",
   storageBucket: "noworries-e37a2.appspot.com",
   messagingSenderId: "805564261166",
-  appId: "1:805564261166:web:e4dea42bf7705b212710bf",
-  measurementId: "G-47BG1S2NMP"
+  appId: "1:805564261166:web:bbd3f00fd76d34832710bf",
+  measurementId: "G-R3SCKWMBP3"
 };
 
-// Initialize Firebase
 const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
+const db = getDatabase(app);
+
+export { app, db, ref, set, child, get }
