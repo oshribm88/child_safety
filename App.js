@@ -5,7 +5,7 @@ import SignInScreen from './screens/SignInScreen';
 import WelcomeScreen from './screens/WelcomeScreen';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { db, ref, set, child, get } from "./config/firebase"
+//import { db, ref, set, child, get } from "./config/firebase"
 
 const Stack = createNativeStackNavigator();
 class App extends Component {
@@ -38,6 +38,7 @@ class App extends Component {
     console.log('Rander is called');
     console.log(this.initScreen())
 
+    /*
     this.writeUserData('123', 'oshri', 'oshribm88@gmail.com', 'bla.com')
 
     const dbRef = ref(db);
@@ -50,6 +51,7 @@ class App extends Component {
     }).catch((error) => {
       console.error(error);
     });
+    */
 
     return (
       <NavigationContainer>
