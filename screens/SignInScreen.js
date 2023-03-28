@@ -27,6 +27,13 @@ class SignInScreen extends React.Component {
       verificationCode: '',
       message: '',
     } 
+    this.unsubscribeAuthStateChanged = getAuth(Firebase.app).onAuthStateChanged(user => {
+      if (user) {
+        console.log(user);
+        // User is signed in, navigate to the main screen
+        this.props.navigation.navigate('MainScreen');
+      }
+    });
   }
 
   handleSendVerificationCode = async () => {
@@ -64,33 +71,37 @@ class SignInScreen extends React.Component {
   render() {
     console.log('SignInScreen render');
     return (
-      <View style={{ padding: 20, marginTop: 50 }}>
+      <View style={styles.container}>
         <FirebaseRecaptchaVerifierModal
           ref={this.recaptchaVerifier}
           firebaseConfig={Firebase.firebaseConfig}
         />
-        <Text style={{ marginTop: 20 }}>Enter phone number</Text>
-        <TextInput
-          style={{ marginVertical: 10, fontSize: 17 }}
-          placeholder="+1 999 999 9999"
-          autoFocus
-          autoCompleteType="tel"
-          keyboardType="phone-pad"
-          textContentType="telephoneNumber"
-          onChangeText={text => this.setState({ phoneNumber: text })}
-        />
+        <Text style={styles.title}>Enter phone number</Text>
+        <View style={styles.inputContainer}>
+          <TextInput
+            style={styles.input}
+            placeholder="+1 999 999 9999"
+            autoFocus
+            autoCompleteType="tel"
+            keyboardType="phone-pad"
+            textContentType="telephoneNumber"
+            onChangeText={text => this.setState({ phoneNumber: text })}
+          />
+        </View>
         <Button
           title="Send Verification Code"
           disabled={!this.state.phoneNumber}
           onPress={this.handleSendVerificationCode}
         />
-        <Text style={{ marginTop: 20 }}>Enter Verification code</Text>
-        <TextInput
-          style={{ marginVertical: 10, fontSize: 17 }}
-          editable={!!this.state.verificationId}
-          placeholder="123456"
-          onChangeText={text => this.setState({ verificationCode: text })}
-        />
+        <Text style={styles.title}>Enter Verification code</Text>
+        <View style={styles.inputContainer}>
+          <TextInput
+            style={styles.input}
+            editable={!!this.state.verificationId}
+            placeholder="123456"
+            onChangeText={text => this.setState({ verificationCode: text })}
+          />
+        </View>
         <Button
           title="Confirm Verification Code"
           disabled={!this.state.verificationId}
@@ -105,35 +116,79 @@ class SignInScreen extends React.Component {
             onPress={() => this.setState({ message: null })}
           >
             <Text style={{ margin: 20, textAlign: 'center' }}>
-              {this.state.message.text}
+            {this.state.message}
             </Text>
-          </TouchableOpacity>
-        ) : null}
-        {this.attemptInvisibleVerification && <FirebaseRecaptchaBanner />}
-      </View>
-    );
-  }
-}
+            </TouchableOpacity>
+            ) : null}
+            {this.attemptInvisibleVerification && <FirebaseRecaptchaBanner />}
 
-
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center'
-  },
-  textInput: {
-    width: '55%',
-    height: 40,
-    borderColor: 'gray',
-    borderWidth: 1,
-    margin: 10
-  },
-  button: {
-    width: '80%',
-    margin: 10
-  }
-});
-
-export default SignInScreen;
+            </View>
+          );
+        }
+      }
+      
+      const styles = StyleSheet.create({
+        container: {
+          flex: 1,
+          alignItems: 'center',
+          justifyContent: 'center',
+          backgroundColor: '#f5f5f5',
+        },
+        title: {
+          fontFamily: 'System',
+          fontSize: 28,
+          color: '#333',
+          marginBottom: 20,
+        },
+        subtitle: {
+          fontFamily: 'System',
+          fontSize: 16,
+          color: '#666',
+          marginBottom: 40,
+        },
+        inputContainer: {
+          width: '80%',
+          marginBottom: 20,
+          borderBottomWidth: 2,
+          borderBottomColor: '#333',
+        },
+        input: {
+          fontFamily: 'System',
+          fontSize: 16,
+          color: '#333',
+          paddingBottom: 5,
+        },
+        buttonContainer: {
+          width: '80%',
+          height: 50,
+          backgroundColor: '#333',
+          alignItems: 'center',
+          justifyContent: 'center',
+          borderRadius: 5,
+        },
+        buttonText: {
+          fontFamily: 'System',
+          fontSize: 18,
+          color: '#fff',
+        },
+        messageContainer: {
+          position: 'absolute',
+          bottom: 20,
+          backgroundColor: '#fff',
+          padding: 20,
+          borderRadius: 10,
+          borderWidth: 1,
+          borderColor: '#ccc',
+          alignSelf: 'center',
+        },
+        messageText: {
+          fontFamily: 'System',
+          fontSize: 16,
+          color: '#333',
+          textAlign: 'center',
+        },
+      });
+      
+      
+      
+      export default SignInScreen;
